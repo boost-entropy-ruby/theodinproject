@@ -40,14 +40,14 @@ gem 'sentry-rails', '~> 5.3'
 gem 'sentry-ruby', '~> 5.3'
 gem 'sentry-sidekiq', '~> 5.3'
 gem 'sidekiq', '~> 6.4'
-gem 'view_component', '~> 2.53'
+gem 'view_component', '~> 2.55'
 gem 'webpacker', '~> 5.4'
 
 group :development do
   gem 'letter_opener', '~> 1.8'
   gem 'listen', '~> 3.7'
   gem 'rack-mini-profiler'
-  gem 'rubocop', '~> 1.29', require: false
+  gem 'rubocop', '~> 1.30', require: false
   gem 'rubocop-performance', '~> 1.13', require: false
   gem 'rubocop-rails', '~> 2.14', require: false
   gem 'rubocop-rspec', '~> 2.10', require: false
