@@ -2,18 +2,21 @@ require 'rails_helper'
 
 module OmniauthProviders
   RSpec.describe Finder do
-    subject { described_class.new(auth) }
+    subject(:finder) { described_class.new(auth) }
 
-    let(:auth) { double('Auth', info:, uid: '123', provider: 'github') }
-    let(:info) do
-      double(
-        'Info',
-        name: 'John',
-        email: 'john@odin.com',
-        image: 'http://github.com/fake-avatar'
+    let(:auth) do
+      OmniAuth::AuthHash.new(
+        provider: 'github',
+        uid: '123',
+        info: {
+          email: 'john@odin.com',
+          name: 'John',
+          image: 'http://github.com/fake-avatar'
+        }
       )
     end
-    let(:user_provider) { double('UserProvider') }
+
+    let(:user_provider) { instance_double(UserProvider) }
 
     before do
       allow(UserProvider).to receive(:find_by)
@@ -23,14 +26,14 @@ module OmniauthProviders
 
     describe '#find' do
       it 'returns the user provider' do
-        expect(subject.find).to eql(user_provider)
+        expect(finder.find).to eql(user_provider)
       end
 
       context 'when a user provider cannot be found' do
         let(:user_provider) { nil }
-        let(:user) { double('User') }
-        let(:new_user_provider) { double('UserProvider') }
-        let(:builder) { double('Builder', build: new_user_provider) }
+        let(:user) { class_double(User) }
+        let(:new_user_provider) { instance_double(UserProvider) }
+        let(:builder) { instance_double(OmniauthProviders::Builder, build: new_user_provider) }
 
         before do
           allow(Builder).to receive(:new)
@@ -45,7 +48,7 @@ module OmniauthProviders
         end
 
         it 'returns a new user provider' do
-          expect(subject.find).to eql(new_user_provider)
+          expect(finder.find).to eql(new_user_provider)
         end
       end
     end

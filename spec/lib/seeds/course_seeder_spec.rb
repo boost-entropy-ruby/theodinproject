@@ -7,6 +7,7 @@ RSpec.describe Seeds::CourseSeeder do
       course.identifier_uuid = 'course_uuid'
       course.title = 'Foundations'
       course.description = 'a foundation course'
+      course.badge_uri = 'foo-ndations.svg'
     end
   end
 
@@ -123,7 +124,7 @@ RSpec.describe Seeds::CourseSeeder do
             identifier_uuid: 'lesson_uuid_2',
             title: 'A Lesson Title',
             description: 'The lessons description',
-            url: '/github/lesson',
+            github_path: '/github/lesson',
           }
         )
       end
